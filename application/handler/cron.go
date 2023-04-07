@@ -6,7 +6,7 @@ import (
 	"github.com/robfig/cron/v3"
 	"go.uber.org/zap"
 	"strconv"
-	"umaru/application/model/dao"
+	"umaru-server/application/model/dao"
 )
 
 var CronServer = &CronServerT{

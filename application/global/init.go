@@ -12,7 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"time"
-	"umaru/application/setting"
+	"umaru-server/application/setting"
 )
 
 /**

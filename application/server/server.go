@@ -1,7 +1,7 @@
 package server
 
 import (
-	"umaru/application/server/restful"
+	"umaru-server/application/server/restful"
 )
 
 func HttpServer() error {

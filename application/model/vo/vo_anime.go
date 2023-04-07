@@ -1,7 +1,7 @@
 package vo
 
 import (
-	"umaru/application/model/dao"
+	"umaru-server/application/model/dao"
 )
 
 type AnimeCreateRequest struct {

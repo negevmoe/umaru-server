@@ -7,8 +7,8 @@ import (
 	"go.uber.org/zap"
 	"net/http"
 	"strings"
-	"umaru/application/model/dao"
-	"umaru/application/model/dto"
+	"umaru-server/application/model/dao"
+	"umaru-server/application/model/dto"
 )
 
 func (r repositoryImpl) MikanInfoSelect(req dto.MikanInfoSelectRequest) (res dto.MikanInfoSelectResponse, err error) {

@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"strconv"
-	"umaru/application/setting"
-	"umaru/application/tool"
+	"umaru-server/application/setting"
+	"umaru-server/application/tool"
 )
 
 // GetRssPath 获取qbittorrent添加rss时的path

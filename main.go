@@ -1,10 +1,10 @@
 package main
 
 import (
-	"umaru/application/global"
-	"umaru/application/handler"
-	"umaru/application/repository"
-	"umaru/application/server"
+	"umaru-server/application/global"
+	"umaru-server/application/handler"
+	"umaru-server/application/repository"
+	"umaru-server/application/server"
 )
 
 func main() {

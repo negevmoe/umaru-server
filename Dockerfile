@@ -1,17 +1,18 @@
-FROM golang:alpine AS builder
+FROM golang:1.18-alpine AS builder
 
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk update && apk add --no-cache musl-dev gcc build-base
 
-ENV GO111MODULE=on \
-    CGO_ENABLED=1 \
-    GOOS=linux \
-    GOARCH=amd64 \
-    GOPROXY=https://goproxy.cn
-
 WORKDIR /build
-COPY . .
 
-RUN go build -ldflags="-s -w" -trimpath -o app .
+ENV CGO_ENABLED=1
+
+COPY go.mod ./go.mod
+COPY go.sum ./go.sum
+COPY main.go ./main.go
+COPY application ./application
+
+RUN GOOS=linux GOPROXY=https://goproxy.cn go build -ldflags="-s -w" -trimpath -o app .
 
 
 FROM alpine

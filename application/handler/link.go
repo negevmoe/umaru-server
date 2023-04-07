@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"errors"
 	"go.uber.org/zap"
 	"io/fs"
 	"os"
@@ -9,9 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
-	"syscall"
-	"umaru/application/model/dto"
-	"umaru/application/usecase"
+	"umaru-server/application/model/dto"
+	"umaru-server/application/usecase"
 )
 
 type mappingT struct {
@@ -116,15 +114,10 @@ func Link() {
 			log.Error("硬连接失败,创建硬连接目标目录失败", zap.Error(err), zap.String("link_dir", dir))
 			return
 		}
+
 		// 硬连接
 		err = os.Link(item.SourcePath, item.LinkPath)
 		if err != nil {
-			// 目标文件已存在则跳过
-			if errors.Is(err, syscall.ERROR_ALREADY_EXISTS) {
-				log.Debug("硬连接失败,目标文件已存在", zap.Error(err), zap.String("target", item.LinkPath))
-				continue
-			}
-
 			log.Error("硬连接失败", zap.Error(err),
 				zap.String("source_path", item.SourcePath),
 				zap.String("link_path", item.LinkPath),

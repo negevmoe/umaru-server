@@ -9,10 +9,10 @@ import (
 	"os"
 	"path/filepath"
 	"time"
-	"umaru/application/global"
-	"umaru/application/model/dao"
-	"umaru/application/model/dto"
-	"umaru/application/setting"
+	"umaru-server/application/global"
+	"umaru-server/application/model/dao"
+	"umaru-server/application/model/dto"
+	"umaru-server/application/setting"
 )
 
 var Repo IRepository = repositoryImpl{}

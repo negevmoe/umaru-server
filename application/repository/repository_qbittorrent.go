@@ -3,7 +3,7 @@ package repository
 import (
 	"encoding/json"
 	"go.uber.org/zap"
-	"umaru/application/model/dto"
+	"umaru-server/application/model/dto"
 )
 
 func (r repositoryImpl) QBLogin(req dto.QBLoginRequest) (res dto.QBLoginResponse, err error) {
@@ -50,10 +50,10 @@ func (r repositoryImpl) QBRuleSet(req dto.QBRuleSetRequest) (res dto.QBRuleSetRe
 		log.Error("qbittorrent 设置规则失败", zap.Error(err), zap.String("rule_name", req.RuleName), zap.Any("rule_def", req.RuleDef))
 		return
 	}
-	err = reqHandler(qb.R().SetQueryParams(map[string]string{
+	err = reqHandler(qb.R().SetFormData(map[string]string{
 		"ruleName": req.RuleName,
 		"ruleDef":  string(ruleDef),
-	}).Get("/rss/setRule"))
+	}).Post("/rss/setRule"))
 	if err != nil {
 		log.Error("qbittorrent 设置规则失败", zap.Error(err))
 		return
@@ -62,9 +62,9 @@ func (r repositoryImpl) QBRuleSet(req dto.QBRuleSetRequest) (res dto.QBRuleSetRe
 }
 
 func (r repositoryImpl) QBRuleDelete(req dto.QBRuleDeleteRequest) (res dto.QBRuleDeleteResponse, err error) {
-	err = reqHandler(qb.R().SetQueryParams(map[string]string{
+	err = reqHandler(qb.R().SetFormData(map[string]string{
 		"ruleName": req.RuleName,
-	}).Get("/rss/removeRule"))
+	}).Post("/rss/removeRule"))
 
 	if err != nil {
 		log.Error("qbittorrent 删除规则失败", zap.Error(err), zap.String("rule_name", req.RuleName))
@@ -89,9 +89,9 @@ func (r repositoryImpl) QBRssInsert(req dto.QBRssInsertRequest) (res dto.QBRssIn
 }
 
 func (r repositoryImpl) QBRssDelete(req dto.QBRssDeleteRequest) (res dto.QBRssDeleteResponse, err error) {
-	err = reqHandler(qb.R().SetQueryParams(map[string]string{
+	err = reqHandler(qb.R().SetFormData(map[string]string{
 		"path": req.Path,
-	}).Get("/rss/removeItem"))
+	}).Post("/rss/removeItem"))
 	if err != nil {
 		log.Error("qbittorrent 删除RSS失败", zap.Error(err),
 			zap.String("path", req.Path),
@@ -150,9 +150,9 @@ func (r repositoryImpl) QBRssFolderSelectList(req dto.QBRssFolderSelectListReque
 }
 
 func (r repositoryImpl) QBRssFolderInsert(req dto.QBRssFolderInsertRequest) (res dto.QBRssFolderInsertResponse, err error) {
-	err = reqHandler(qb.R().SetQueryParams(map[string]string{
+	err = reqHandler(qb.R().SetFormData(map[string]string{
 		"path": req.Path,
-	}).Get("/rss/addFolder"))
+	}).Post("/rss/addFolder"))
 	if err != nil {
 		log.Error("qbittorrent 创建RSS文件夹失败", zap.Error(err),
 			zap.String("path", req.Path),

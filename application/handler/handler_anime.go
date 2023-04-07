@@ -8,11 +8,11 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
-	"umaru/application/model/dao"
-	"umaru/application/model/dto"
-	"umaru/application/model/vo"
-	"umaru/application/setting"
-	"umaru/application/usecase"
+	"umaru-server/application/model/dao"
+	"umaru-server/application/model/dto"
+	"umaru-server/application/model/vo"
+	"umaru-server/application/setting"
+	"umaru-server/application/usecase"
 )
 
 /*

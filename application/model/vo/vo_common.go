@@ -2,7 +2,7 @@ package vo
 
 import (
 	"github.com/robfig/cron/v3"
-	"umaru/application/model/dao"
+	"umaru-server/application/model/dao"
 )
 
 type UserLoginRequest struct {

@@ -3,12 +3,17 @@ package restful
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"umaru/application/handler"
-	"umaru/application/model/vo"
-	"umaru/application/setting"
+	"umaru-server/application/handler"
+	"umaru-server/application/model/vo"
+	"umaru-server/application/setting"
 )
 
 func Run() error {
+	if setting.SERVER_DEBUG {
+		gin.SetMode(gin.DebugMode)
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+	}
 	router := gin.Default()
 
 	router.POST("/api/user/login", UserLogin) // 登录
@@ -45,7 +50,6 @@ func Run() error {
 	router.GET("/api/cron/start", MiddleAuth(), CronStart)   // 定时任务 开始
 
 	router.LoadHTMLGlob("./dist/*.html")
-	router.LoadHTMLFiles("./dist/**/*")
 	router.Static("/assets", "./dist/assets")
 	router.StaticFile("/", "dist/index.html")
 	return router.Run(fmt.Sprintf(":%d", setting.SERVER_PORT))

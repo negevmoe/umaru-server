@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
-	"umaru/application/model/dto"
+	"umaru-server/application/model/dto"
 )
 
 func (r repositoryImpl) RuleSelectList(db IDB, req dto.RuleSelectListRequest) (res dto.RuleSelectListResponse, err error) {

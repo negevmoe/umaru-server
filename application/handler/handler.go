@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
-	"umaru/application/global"
-	"umaru/application/model/dto"
-	"umaru/application/model/vo"
-	"umaru/application/repository"
-	"umaru/application/tool"
-	"umaru/application/usecase"
+	"umaru-server/application/global"
+	"umaru-server/application/model/dto"
+	"umaru-server/application/model/vo"
+	"umaru-server/application/repository"
+	"umaru-server/application/tool"
+	"umaru-server/application/usecase"
 )
 
 var db *sqlx.DB

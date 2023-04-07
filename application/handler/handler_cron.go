@@ -3,7 +3,7 @@ package handler
 import (
 	"go.uber.org/zap"
 	"time"
-	"umaru/application/model/vo"
+	"umaru-server/application/model/vo"
 )
 
 func (s handlerImpl) CronGetList(req vo.CronGetListRequest) (res vo.CronGetListResponse, err error) {

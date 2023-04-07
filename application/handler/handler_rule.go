@@ -2,9 +2,9 @@ package handler
 
 import (
 	"time"
-	"umaru/application/model/dao"
-	"umaru/application/model/dto"
-	"umaru/application/model/vo"
+	"umaru-server/application/model/dao"
+	"umaru-server/application/model/dto"
+	"umaru-server/application/model/vo"
 )
 
 func (s handlerImpl) RuleGetList(req vo.RuleGetListRequest) (res vo.RuleGetListResponse, err error) {

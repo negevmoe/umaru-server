@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-	"umaru/application/setting"
+	"umaru-server/application/setting"
 )
 
 // GetLinkPath 获取硬链接路径

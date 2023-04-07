@@ -1,6 +1,6 @@
 package dto
 
-import "umaru/application/model/dao"
+import "umaru-server/application/model/dao"
 
 type RuleSelectListRequest struct {
 }

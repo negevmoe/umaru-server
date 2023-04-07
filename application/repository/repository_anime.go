@@ -4,8 +4,8 @@ import (
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
 	"time"
-	"umaru/application/enum"
-	"umaru/application/model/dto"
+	"umaru-server/application/enum"
+	"umaru-server/application/model/dto"
 )
 
 func (r repositoryImpl) AnimeSelect(db IDB, req dto.AnimeSelectRequest) (res dto.AnimeSelectResponse, err error) {

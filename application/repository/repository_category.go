@@ -4,7 +4,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
 	"time"
-	"umaru/application/model/dto"
+	"umaru-server/application/model/dto"
 )
 
 func (r repositoryImpl) CategoryInsert(db IDB, req dto.CategoryInsertRequest) (res dto.CategoryInsertResponse, err error) {

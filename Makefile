@@ -35,7 +35,6 @@ build:
 .PHONY:run
 run:
 	@\
-    MSYS_NO_PATHCONV=1 \
 	SERVER_DEBUG=true \
     SERVER_PORT=8081 \
     SERVER_TOKEN_EXPIRATION_TIME=36000 \

@@ -1,6 +1,6 @@
 package vo
 
-import "umaru/application/model/dao"
+import "umaru-server/application/model/dao"
 
 type ParseRssRequest struct {
 	Url            string `json:"url"`              // rss链接
