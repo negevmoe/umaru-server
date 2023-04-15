@@ -10,7 +10,7 @@ import (
 只支持数字
 */
 
-var episodeNumberReg = regexp.MustCompile("\\[(\\d+)\\]|\\s(\\d+)\\s|\\s第(\\d+)[话集]")
+var episodeNumberReg = regexp.MustCompile("\\[(\\d+)\\]|\\s(\\d+)\\s|\\s第(\\d+)[话集]|#(\\d+)")
 
 // GetEpisode 获取季信息
 //	数字: [4] 04 4 第4话 第4集

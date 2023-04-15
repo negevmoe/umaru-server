@@ -22,6 +22,7 @@ func TestGetEpisode(t *testing.T) {
 		{"", args{title: "[桜都字幕组] 不死者之王 s12 / OVERLORD Ⅳ [1080p][简体内嵌]"}, 0, false},
 		{"", args{title: "[桜都字幕组] 不死者之王 S4 / OVERLORD Ⅳ 06 [1080p][简体内嵌]"}, 6, true},
 		{"", args{title: "[桜都字幕组] 不死者之王 s04 / OVERLORD Ⅳ 8 [1080p][简体内嵌]"}, 8, true},
+		{"#", args{title: "《帶著智慧型手機闖蕩異世界。2》#1 (日文自動產生字幕)【Ani-One Asia】"}, 1, true},
 		{"第x集", args{title: "[桜都字幕组] 不死者之王 s04 / OVERLORD Ⅳ 第08集 [1080p][简体内嵌]"}, 8, true},
 		{"第x话", args{title: "[桜都字幕组] 不死者之王 s04 / OVERLORD Ⅳ 第08话 [1080p][简体内嵌]"}, 8, true},
 		{"第x话 #2", args{title: "[桜都字幕组] 不死者之王 s04 / OVERLORD Ⅳ 第382话 [1080p][简体内嵌]"}, 382, true},

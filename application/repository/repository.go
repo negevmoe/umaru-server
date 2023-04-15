@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"syscall"
 	"time"
+	"umaru-server/application/enum"
 	"umaru-server/application/global"
 	"umaru-server/application/model/dao"
 	"umaru-server/application/model/dto"
@@ -107,7 +108,12 @@ func (r repositoryImpl) initSqlite(db *sqlx.DB) {
 
 	// 获取默认分类列表
 	selectRet, err := r.CategorySelectList(db, dto.CategorySelectListRequest{
-		IdList: []int64{1, 2, 3, 4},
+		IdList: []int64{
+			enum.CATEGORY_DEFAULT_ID,
+			enum.CATEGORY_TV_ID,
+			enum.CATEGORY_MOVIE_ID,
+			enum.CATEGORY_OAV_ID,
+		},
 		Origin: 1,
 	})
 	if err != nil {
@@ -116,29 +122,29 @@ func (r repositoryImpl) initSqlite(db *sqlx.DB) {
 
 	now := time.Now().Unix()
 	initSet := map[int64]dao.Category{
-		1: {
-			Id:         1,
+		enum.CATEGORY_DEFAULT_ID: {
+			Id:         enum.CATEGORY_DEFAULT_ID,
 			Name:       "未分类",
 			Origin:     1,
 			CreateTime: now,
 			UpdateTime: now,
 		},
-		2: {
-			Id:         2,
+		enum.CATEGORY_TV_ID: {
+			Id:         enum.CATEGORY_TV_ID,
 			Name:       "TV",
 			Origin:     1,
 			CreateTime: now,
 			UpdateTime: now,
 		},
-		3: {
-			Id:         3,
+		enum.CATEGORY_MOVIE_ID: {
+			Id:         enum.CATEGORY_MOVIE_ID,
 			Name:       "剧场版",
 			Origin:     1,
 			CreateTime: now,
 			UpdateTime: now,
 		},
-		4: {
-			Id:         4,
+		enum.CATEGORY_OAV_ID: {
+			Id:         enum.CATEGORY_OAV_ID,
 			Name:       "OVA",
 			Origin:     1,
 			CreateTime: now,
@@ -172,7 +178,7 @@ func (r repositoryImpl) initSqlite(db *sqlx.DB) {
 			log.Fatal(errMsg, zap.Error(err))
 		}
 
-		if err = os.MkdirAll(filepath.Join(setting.MEDIA_PATH, item.Name), 0766); err != nil {
+		if err = os.MkdirAll(filepath.Join(setting.MEDIA_PATH, item.Name), 0777); err != nil {
 			log.Fatal("创建分类目录失败", zap.Error(err))
 		}
 	}

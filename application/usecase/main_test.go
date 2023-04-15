@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"testing"
-	"umaru/application/setting"
+	"umaru-server/application/setting"
 )
 
 func TestMain(m *testing.M) {
