@@ -33,6 +33,11 @@ func GetLinkPath(category string, title string, season int64, episode int64, ext
 		return "", err
 	}
 
+	// 剧集为-1 则表示没有剧集信息 如电影
+	if episode == -1 {
+		return filepath.Join(dir, fmt.Sprintf("%s%s", title, ext)), nil
+	}
+
 	filename := fmt.Sprintf("%s - S%02dE%02d%s", title, season, episode, ext)
 	return filepath.Join(dir, filename), nil
 }
@@ -57,8 +62,12 @@ func GetLinkDir(category string, title string, season int64) (string, error) {
 		return "", errors.New("缺少季信息")
 	}
 
-	s := "S" + strconv.FormatInt(season, 10)
-	return filepath.Join(setting.MEDIA_PATH, category, title, s), nil
+	if season > 0 {
+		s := "S" + strconv.FormatInt(season, 10)
+		return filepath.Join(setting.MEDIA_PATH, category, title, s), nil
+	}
+	return filepath.Join(setting.MEDIA_PATH, category, title), nil
+
 }
 
 // GetSourceDir 获取番剧下载目录

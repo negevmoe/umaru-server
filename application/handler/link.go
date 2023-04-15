@@ -71,15 +71,19 @@ func Link() {
 			ext := path.Ext(fullFilename)                     // 格式尾缀 .ext
 			filename := strings.TrimSuffix(fullFilename, ext) // 文件名,无格式尾缀 filename
 
-			// 从文件名中提取集数
-			episode, ok := usecase.GetEpisode(filename)
-			if !ok {
-				if item.CategoryId == enum.CATEGORY_MOVIE_ID {
-					episode = 1
-				} else {
+			var episode int64
+
+			if item.CategoryId == enum.CATEGORY_MOVIE_ID {
+				episode = -1
+				item.Season = -1
+			} else {
+				// 从文件名中提取集数
+				ep, ok := usecase.GetEpisode(filename)
+				if !ok {
 					log.Warn("提取集数失败,硬链接跳过该视频", zap.String("filename", filename))
 					return nil
 				}
+				episode = ep
 			}
 
 			// 获取硬链接路径
