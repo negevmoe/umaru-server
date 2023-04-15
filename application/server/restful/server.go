@@ -3,6 +3,8 @@ package restful
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"io/ioutil"
+	"strings"
 	"umaru-server/application/handler"
 	"umaru-server/application/model/vo"
 	"umaru-server/application/setting"
@@ -52,6 +54,22 @@ func Run() error {
 	router.LoadHTMLGlob("./dist/*.html")
 	router.Static("/assets", "./dist/assets")
 	router.StaticFile("/", "dist/index.html")
+	router.NoRoute(func(c *gin.Context) {
+		accept := c.Request.Header.Get("Accept")
+		flag := strings.Contains(accept, "text/html")
+		if flag {
+			content, err := ioutil.ReadFile("dist/index.html")
+			if (err) != nil {
+				c.Writer.WriteHeader(404)
+				c.Writer.WriteString("Not Found")
+				return
+			}
+			c.Writer.WriteHeader(200)
+			c.Writer.Header().Add("Accept", "text/html")
+			c.Writer.Write(content)
+			c.Writer.Flush()
+		}
+	})
 	return router.Run(fmt.Sprintf(":%d", setting.SERVER_PORT))
 }
 

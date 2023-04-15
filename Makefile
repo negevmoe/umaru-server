@@ -34,21 +34,20 @@ build:
 
 .PHONY:run
 run:
-	@\
-	SERVER_DEBUG=true \
-    SERVER_PORT=8081 \
-    SERVER_TOKEN_EXPIRATION_TIME=36000 \
-    SERVER_USERNAME="admin" \
-    SERVER_PASSWORD="admin" \
-    SERVER_LOG_DIR="D:/home/negevmoe/umaru-server/.log" \
-	DB_PATH="D:/home/negevmoe/umaru-server/umaru.db" \
-	DB_MAX_CONNS=30 \
-    MEDIA_PATH="D:/home/negevmoe/umaru-server/docker/jellyfin/media" \
-    SOURCE_PATH="D:/home/negevmoe/umaru-server/docker/qbittorrent/downloads" \
-    QB_DOWNLOAD_PATH="/downloads" \
-    QB_URL="http://localhost:9999" \
-    QB_USERNAME="admin" \
-    QB_PASSWORD="adminadmin" \
-    QB_CATEGORY="umaru" \
-    QB_RSS_FOLDER="umaru" \
-    go run main.go
+	@SERVER_DEBUG=true \
+  SERVER_PORT=8081 \
+  SERVER_TOKEN_EXPIRATION_TIME=36000 \
+  SERVER_USERNAME="admin" \
+  SERVER_PASSWORD="admin" \
+  SERVER_LOG_DIR="/home/negevmoe/workspace/negevmoe/umaru-server/.log" \
+  DB_PATH="/home/negevmoe/workspace/negevmoe/umaru-server/umaru.db" \
+  DB_MAX_CONNS=30 \
+  MEDIA_PATH="/home/negevmoe/workspace/negevmoe/umaru-server/docker/jellyfin/media" \
+  SOURCE_PATH="/home/negevmoe/workspace/negevmoe/umaru-server/docker/qbittorrent/downloads" \
+  QB_DOWNLOAD_PATH="/downloads" \
+  QB_URL="http://localhost:9999" \
+  QB_USERNAME="admin" \
+  QB_PASSWORD="adminadmin" \
+  QB_CATEGORY="umaru" \
+  QB_RSS_FOLDER="umaru" \
+  go run main.go

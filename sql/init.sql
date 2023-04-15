@@ -15,7 +15,7 @@ create table if not exists anime
     update_time INTEGER default 0  not null
 );
 
-create unique index  if not exists anime_title_season_uindex
+create unique index if not exists anime_title_season_uindex
     on anime (title, season);
 
 
@@ -30,7 +30,7 @@ create table if not exists category
     update_time INTEGER default 0  not null
 );
 
-create unique index  if not exists category_name_uindex
+create unique index if not exists category_name_uindex
     on category (name);
 
 create table if not exists rule

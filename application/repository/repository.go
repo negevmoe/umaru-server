@@ -2,12 +2,12 @@ package repository
 
 import (
 	"errors"
-	"fmt"
 	"github.com/imroc/req/v3"
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"
 	"os"
 	"path/filepath"
+	"syscall"
 	"time"
 	"umaru-server/application/global"
 	"umaru-server/application/model/dao"
@@ -150,9 +150,7 @@ func (r repositoryImpl) initSqlite(db *sqlx.DB) {
 			delete(initSet, item.Id)
 		}
 	}
-	for _, item := range initSet {
-		fmt.Println(item)
-	}
+
 	// 开启事务
 	tx, err := db.Beginx()
 	if err != nil {
@@ -166,12 +164,15 @@ func (r repositoryImpl) initSqlite(db *sqlx.DB) {
 		log.Fatal(errMsg, zap.Error(err))
 	}
 
+	mask := syscall.Umask(0)
+	defer syscall.Umask(mask)
+
 	for _, item := range initSet {
 		if _, err = stmt.Exec(item.Id, item.Name, item.Origin, item.CreateTime, item.UpdateTime); err != nil {
 			log.Fatal(errMsg, zap.Error(err))
 		}
 
-		if err = os.MkdirAll(filepath.Join(setting.MEDIA_PATH, item.Name), 0644); err != nil {
+		if err = os.MkdirAll(filepath.Join(setting.MEDIA_PATH, item.Name), 0766); err != nil {
 			log.Fatal("创建分类目录失败", zap.Error(err))
 		}
 	}

@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 	"sync"
+	"syscall"
+	"umaru-server/application/enum"
 	"umaru-server/application/model/dto"
 	"umaru-server/application/usecase"
 )
@@ -72,8 +74,12 @@ func Link() {
 			// 从文件名中提取集数
 			episode, ok := usecase.GetEpisode(filename)
 			if !ok {
-				log.Warn("提取集数失败,硬链接跳过该视频", zap.String("filename", filename))
-				return nil
+				if item.CategoryId == enum.CATEGORY_MOVIE_ID {
+					episode = 1
+				} else {
+					log.Warn("提取集数失败,硬链接跳过该视频", zap.String("filename", filename))
+					return nil
+				}
 			}
 
 			// 获取硬链接路径
@@ -91,7 +97,12 @@ func Link() {
 			}
 
 			// 硬连接文件已存在 跳过
-			if usecase.IsFileExists(linkPath) {
+			found, err := usecase.IsFileExists(linkPath)
+			if err != nil {
+				log.Error("获取文件信息错误", zap.Error(err), zap.String("target", linkPath))
+				return err
+			}
+			if found {
 				log.Debug("跳过已存在的硬连接文件", zap.String("target", linkPath))
 				return nil
 			}
@@ -109,7 +120,10 @@ func Link() {
 	for _, item := range mappingList {
 		// 如果不存在则创建硬连接目录
 		dir := filepath.Dir(item.LinkPath)
-		err = os.MkdirAll(dir, 0666)
+		mask := syscall.Umask(0)
+		defer syscall.Umask(mask)
+
+		err = os.MkdirAll(dir, 0777)
 		if err != nil {
 			log.Error("硬连接失败,创建硬连接目标目录失败", zap.Error(err), zap.String("link_dir", dir))
 			return
@@ -123,6 +137,13 @@ func Link() {
 				zap.String("link_path", item.LinkPath),
 			)
 			return
+		}
+
+		err = os.Chmod(item.LinkPath, 0777)
+		if err != nil {
+			log.Error("硬连接文件权限设置失败", zap.Error(err),
+				zap.String("link_path", item.LinkPath),
+			)
 		}
 
 		log.Info("硬连接成功",
